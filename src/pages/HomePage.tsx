@@ -34,6 +34,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             <span className="ml-2">Engage Test Mode</span>
           </label>
         </div>
+        <a href="https://www.youtube.com/watch?v=NCgIo--U8M0" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 text-lg mt-4 flex items-center justify-center transition duration-150 w-full"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-youtube text-red-600 mr-2"><path d="M2.5 17a24.12 24.12 0 0 1 0-10c.05-1.57.5-2.07 1.5-2.07 2.05-.05 4.3-.05 6.75 0h.5c.2 0 .4.05.6.05 2.45.05 4.7.05 6.75 0 1 0 1.45.5 1.5 2.07a24.12 24.12 0 0 1 0 10c-.05 1.57-.5 2.07-1.5 2.07-2.05.05-4.3.05-6.75 0h-.5c-.2 0-.4-.05-.6-.05-2.45-.05-4.7-.05-6.75 0-1 0-1.45-.5-1.5-2.07Zm8.75-2.25L16 12l-4.75-2.75Z" /></svg>Watch Tutorial on YouTube</a>
       </div>
     </div>;
 };

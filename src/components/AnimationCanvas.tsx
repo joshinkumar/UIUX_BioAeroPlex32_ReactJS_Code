@@ -9,6 +9,7 @@ export const AnimationCanvas: React.FC<AnimationCanvasProps> = ({
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [transferPosition, setTransferPosition] = useState(0);
+
   // Constants for animation
   const canvasWidth = 800;
   const canvasHeight = 170;
@@ -17,6 +18,7 @@ export const AnimationCanvas: React.FC<AnimationCanvasProps> = ({
   const endX = 600;
   const animationSpeed = 10;
   const particleDistance = 40;
+
   // URLs for actual images
   const wetCycloneUrl = "/wet_cyclone.png";
   const biosensorUrl = "/biosensor.png";
@@ -40,19 +42,31 @@ export const AnimationCanvas: React.FC<AnimationCanvasProps> = ({
   useEffect(() => {
     const canvas = canvasRef.current;
     if (canvas) {
+      // Handle high DPI for sharper rendering on retina/high-res displays
+      const dpr = window.devicePixelRatio || 1;
+      canvas.style.width = `${canvasWidth}px`;
+      canvas.style.height = `${canvasHeight}px`;
+      canvas.width = canvasWidth * dpr;
+      canvas.height = canvasHeight * dpr;
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
+
+      // Scale the context to match DPR (all drawing coords remain in logical/CSS pixels)
+      ctx.scale(dpr, dpr);
+
+      // Disable image smoothing to prevent blurring when scaling images
+      ctx.imageSmoothingEnabled = false;
       const wetPix = new Image();
       wetPix.src = wetCycloneUrl;
       const bioPix = new Image();
       bioPix.src = biosensorUrl;
       const draw = () => {
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-        // Draw images
+
+        // Draw images (scaled to 150x150, but now without smoothing blur)
         if (wetPix.complete) ctx.drawImage(wetPix, 50, 10, 150, 150);
         if (bioPix.complete) ctx.drawImage(bioPix, 600, 10, 150, 150);
+
         // Draw connecting line
         ctx.beginPath();
         ctx.moveTo(startX, lineY);
@@ -60,6 +74,7 @@ export const AnimationCanvas: React.FC<AnimationCanvasProps> = ({
         ctx.lineWidth = 12;
         ctx.strokeStyle = '#4a90e2';
         ctx.stroke();
+
         // Draw moving particles
         if (transferPosition > 0) {
           for (let pos = 0; pos <= transferPosition; pos += particleDistance) {
@@ -75,5 +90,7 @@ export const AnimationCanvas: React.FC<AnimationCanvasProps> = ({
       draw();
     }
   }, [transferPosition]);
-  return <canvas ref={canvasRef} width={canvasWidth} height={canvasHeight} className="bg-white rounded-lg shadow-md" />;
+  return <canvas ref={canvasRef}
+  // Removed inline width/height attributes; now set via style in useEffect
+  className="bg-white rounded-lg shadow-md" />;
 };

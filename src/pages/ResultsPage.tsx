@@ -33,15 +33,15 @@ export const ResultsPage: React.FC<ResultsPageProps> = ({
   const pathogens = Array.from({
     length: 32
   }, (_, i) => `Pathogen ${i + 1}`);
-  const concentrations = pathogens.map((_, i) => i % 6 === 0 ? '0.05 mg/L' : '0.00 mg/L');
-  const statuses = concentrations.map(conc => conc !== '0.00 mg/L' ? 'Detected' : 'Not Detected');
+  const concentrations = pathogens.map((_, i) => i % 6 === 0 ? '0.05 mg/m³' : '0.00 mg/m³');
+  const statuses = concentrations.map(conc => conc !== '0.00 mg/m³' ? 'Detected' : 'Not Detected');
   return <div className="container mx-auto px-4 py-8 max-w-6xl">
       <Stepper currentStep={4} steps={steps} />
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold text-blue-600 mb-2">
           Pathogen Detection Results
         </h2>
-        <p className="text-xl text-gray-600">Detected Pathogens: 5/32</p>
+        <p className="text-xl text-gray-600">Detected Pathogens: 6/32<br />[ Virus: 2 | Bacteria: 1 | Fungi: 1 | Allergen: 2 ]</p>
       </div>
       {pathogenTypes.map(type => <div key={type.name} className="mb-8">
           <h3 className={`text-xl font-bold ${type.color} mb-4`}>

@@ -28,10 +28,11 @@ export const TransferPage: React.FC<TransferPageProps> = ({
         </p>
       </div>
       <div className="flex flex-col items-center mb-8">
-        <Button text="Initiate Transfer" icon="💧" onClick={initiateTransfer} size="lg" className="mb-8" />
         <div className="w-full max-w-3xl">
           <AnimationCanvas initiate={initiate} onAnimationFinished={handleAnimationFinished} />
         </div>
+        <p className="text-gray-600 mb-6 text-lg"></p>
+        <Button text="Initiate Transfer" icon="💧" onClick={initiateTransfer} size="lg" className="mb-8" />
       </div>
       <div className="flex justify-center space-x-4">
         {showNext && <Button text="Proceed to Pathogen Scan" icon="➡" onClick={() => showFrame('scan')} />}
